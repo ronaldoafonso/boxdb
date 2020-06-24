@@ -1,0 +1,13 @@
+{
+    "customer1": [
+        "box1",
+        "box11"
+    ],
+    "customer2": [
+        "box2",
+        "box22"
+    ],
+    "healthy": [
+        "healthy"
+    ]
+}

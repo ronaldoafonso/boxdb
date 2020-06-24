@@ -1,0 +1,6 @@
+__pycache__
+venv
+.bash_history
+.cache/
+.local/
+.python_history
