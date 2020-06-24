@@ -1,0 +1,16 @@
+---
+version: '3.7'
+
+services:
+  boxdb:
+    build:
+      context: .
+    image: boxdb:0.0.2
+    volumes:
+      - type: bind
+        source: .
+        target: /home/boxdb
+    ports:
+      - "5000:5000"
+    command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
+...
