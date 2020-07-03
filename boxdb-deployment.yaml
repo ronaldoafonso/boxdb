@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boxdb
+  namespace: boxdb
+spec:
+  selector:
+    matchLabels:
+      app: boxdb
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: boxdb
+    spec:
+      containers:
+        - name: boxdb
+          image: ronaldoafonso/boxdb:0.0.2
+          ports:
+            - containerPort: 5000
+              name: boxdb
+              protocol: TCP
+          volumeMounts:
+            - name: boxdb-nfs
+              mountPath: "/home/boxdb/data" 
+          readinessProbe:
+            tcpSocket:
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 60
+      volumes:
+        - name: boxdb-nfs
+          nfs:
+            server: 192.168.0.2
+            path: "/srv/nfs4/boxdb"
