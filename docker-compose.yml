@@ -5,7 +5,7 @@ services:
   boxdb:
     build:
       context: .
-    image: boxdb:0.0.2
+    image: boxdb:0.0.3
     volumes:
       - type: bind
         source: .

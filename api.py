@@ -1,33 +1,21 @@
 
-import flask
+from flask import Flask
+from flask_restful import Api
 
 import customer
 import box
 
 
-app = flask.Flask(__name__)
-app.config['DEBUG'] = True
+app = Flask(__name__)
+app.port = 5000
+app.host = '0.0.0.0'
 
+api = Api(app)
 
-@app.route('/v1/resources/customers', methods=['GET'])
-def customers():
-    if 'name' in flask.request.args:
-        name = flask.request.args['name']
-    else:
-        return 'Error: no "name" field provides.'
+api.add_resource(customer.CustomerList, '/v1/customers')
+api.add_resource(customer.CustomerItem, '/v1/<string:customer>')
+api.add_resource(customer.BoxItem, '/v1/<string:customer>/<string:box>')
 
-    c = customer.Customer(name)
-    return flask.jsonify(c.getBoxes())
-
-@app.route('/v1/resources/boxes', methods=['GET'])
-def boxes():
-    if 'boxname' in flask.request.args:
-        boxname = flask.request.args['boxname']
-    else:
-        return 'Error: no "boxname" field provides.'
-
-    b = box.Box(boxname)
-    return flask.jsonify(b.getConfig())
 
 @app.route('/healthy', methods=['GET'])
 def healthy():

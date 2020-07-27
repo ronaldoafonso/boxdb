@@ -1,18 +1,41 @@
 
+from flask_restful import Resource
 import json
 
 
-DB = 'data/customer.json'
-DB_MODE = 'r'
+CUSTOMER_DB = 'data/customer.json'
+BOX_DB = 'data/box.json'
 
 
-class Customer:
+class CustomerList(Resource):
 
-    def __init__(self, name):
-        self.name = name
-        self.boxes = {}
+    def get(self):
+        with open(CUSTOMER_DB) as customer_db:
+            customers = json.load(customer_db)
+        return {'customers': [customer for customer in customers.keys()]}
 
-    def getBoxes(self):
-        with open(DB, DB_MODE) as db:
-            boxes = json.load(db)
-        return boxes[self.name]
+class CustomerItem(Resource):
+
+    def get(self, customer):
+        with open(CUSTOMER_DB) as customer_db:
+            customers = json.load(customer_db)
+        if customers.get(customer, None):
+            return {'customer': customers[customer]}
+        else:
+            return {'message': 'customer not found'}, 404
+
+
+class BoxItem(Resource):
+
+    def get(self, customer, box):
+        with open(CUSTOMER_DB) as customer_db:
+            customers = json.load(customer_db)
+        if customers.get(customer, None):
+            if box in customers[customer]:
+                with open(BOX_DB) as box_db:
+                    boxes = json.load(box_db)
+                return {'box': boxes[box]}
+            else:
+                return {'message': 'box not found'}, 404
+        else:
+            return {'message': 'customer not found'}, 404
