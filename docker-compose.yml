@@ -13,4 +13,16 @@ services:
     ports:
       - "5000:5000"
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
+  mongo:
+    image: mongo:4.0
+    volumes:
+      - type: bind
+        source: ./data
+        target: /root/data
+      - type: volume
+        source: mongo-volume
+        target: /data/db
+
+volumes:
+  mongo-volume:
 ...
