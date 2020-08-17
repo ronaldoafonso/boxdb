@@ -1,5 +1,5 @@
 
-var mongo = new Mongo('localhost')
+var mongo = new Mongo('mongodb://mongo:mongo@localhost')
 var boxdb = mongo.getDB('boxdb')
 
 var boxdbUser = {
@@ -10,3 +10,6 @@ var boxdbUser = {
     ]
 }
 boxdb.createUser(boxdbUser)
+
+boxdb.createCollection('boxes')
+boxdb.createCollection('customers')

@@ -15,6 +15,9 @@ services:
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
   mongo:
     image: mongo:4.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
     volumes:
       - type: bind
         source: ./data
