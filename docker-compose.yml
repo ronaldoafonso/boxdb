@@ -16,16 +16,16 @@ services:
   mongo:
     image: mongo:4.0
     environment:
-      MONGO_INITDB_ROOT_USERNAME: mongo
-      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_ROOT_USERNAME: boxdb
+      MONGO_INITDB_ROOT_PASSWORD: boxdb
     volumes:
       - type: bind
         source: ./data
         target: /root/data
       - type: volume
-        source: mongo-volume
+        source: boxdb-volume
         target: /data/db
 
 volumes:
-  mongo-volume:
+  boxdb-volume:
 ...

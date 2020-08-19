@@ -1,43 +1,25 @@
 
-var mongo = new Mongo('mongodb://mongo:mongo@localhost')
+var mongo = new Mongo('mongodb://boxdb:boxdb@localhost')
 var boxdb = mongo.getDB('boxdb')
 var customers = boxdb.getCollection('customers')
 
-var customer1 = [
+var _customers = [
     {
-        name: 'box1',
-        ssid: 'ssid1',
-        macs: [
-            '11:11:11:11:11:11'
-         ]
+        name: 'customer1',
+        boxes: [
+            'box1',
+            'box11'
+        ]
     },
     {
-        name: 'box11',
-        ssid: 'ssid1',
-        macs: [
-            '11:11:11:11:11:11',
-            '11:11:11:11:11:22'
+        name: 'customer2',
+        boxes: [
+            'box2',
+            'box22'
         ]
     }
 ]
-customers.insert({customer1: customer1})
 
-var customer2 = [
-    {
-        name: 'box2',
-        ssid: 'ssid2',
-        macs: [
-            '22:22:22:22:22:11',
-            '22:22:22:22:22:22',
-            '22:22:22:22:22:33'
-        ]
-    },
-    {
-        name: 'box22',
-        ssid: 'ssid2',
-        macs: [
-            '22:22:22:22:22:22'
-        ]
-    }
-]
-customers.insert({customer2: customer2})
+for (var i in _customers) {
+    customers.insert(_customers[i])
+}
