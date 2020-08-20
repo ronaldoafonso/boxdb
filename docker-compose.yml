@@ -5,11 +5,11 @@ services:
   boxdb:
     build:
       context: .
-    image: boxdb:0.0.3
+    image: boxdb:0.0.4
     volumes:
       - type: bind
         source: .
-        target: /home/boxdb
+        target: /home/boxdb/dev
     ports:
       - "5000:5000"
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]

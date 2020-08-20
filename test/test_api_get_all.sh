@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# GET /customers -> {
+# GET /v1/customers -> {
 #    'customers': [
 #        'customer1,
 #        'customer2,
