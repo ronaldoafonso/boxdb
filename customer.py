@@ -1,40 +1,40 @@
 
 from flask_restful import Resource
-import json
+from pymongo import MongoClient
 
 
-CUSTOMER_DB = 'data/customer.json'
-BOX_DB = 'data/box.json'
-
+# DOTO: Maybe it could be a 'singleton'
+MONGO = MongoClient('mongodb://boxdb:boxdb@boxdb_mongo_1')
 
 class CustomerList(Resource):
 
     def get(self):
-        with open(CUSTOMER_DB) as customer_db:
-            customers = json.load(customer_db)
-        return {'customers': [customer for customer in customers.keys()]}
+        customers = MONGO.boxdb.customers
+        return {'customers': [customer['name'] for customer in
+                              customers.find()]}
 
 class CustomerItem(Resource):
 
     def get(self, customer):
-        with open(CUSTOMER_DB) as customer_db:
-            customers = json.load(customer_db)
-        if customers.get(customer, None):
-            return {'customer': customers[customer]}
-        else:
-            return {'message': 'customer not found'}, 404
+        _customer = MONGO.boxdb.customers.find_one({'name': customer})
+        if _customer:
+            return {'name': _customer['name'], 'boxes': _customer['boxes']}
+        return {'message': 'customer not found'}, 404
 
 
 class BoxItem(Resource):
 
     def get(self, customer, box):
-        with open(CUSTOMER_DB) as customer_db:
-            customers = json.load(customer_db)
-        if customers.get(customer, None):
-            if box in customers[customer]:
-                with open(BOX_DB) as box_db:
-                    boxes = json.load(box_db)
-                return {'box': boxes[box]}
+        _customer = MONGO.boxdb.customers.find_one({'name': customer})
+        if _customer:
+            _box = MONGO.boxdb.boxes.find_one({'name': box})
+            if _box:
+                return {
+                    'name': _box['name'],
+                    'owner': _box['owner'],
+                    'ssid': _box['ssid'],
+                    'macs': _box['macs']
+                }
             else:
                 return {'message': 'box not found'}, 404
         else:

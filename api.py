@@ -3,7 +3,6 @@ from flask import Flask
 from flask_restful import Api
 
 import customer
-import box
 
 
 app = Flask(__name__)
@@ -17,7 +16,7 @@ api.add_resource(customer.CustomerItem, '/v1/<string:customer>')
 api.add_resource(customer.BoxItem, '/v1/<string:customer>/<string:box>')
 
 
-@app.route('/healthy', methods=['GET'])
-def healthy():
-    c = customer.Customer('healthy')
-    return flask.jsonify(c.getBoxes())
+#@app.route('/healthy', methods=['GET'])
+#def healthy():
+#    c = customer.Customer('healthy')
+#    return flask.jsonify(c.getBoxes())
