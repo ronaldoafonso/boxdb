@@ -1,9 +1,8 @@
 #!/bin/sh
 
-CUSTOMER="$1"
-BOX="$2"
+BOX="$1"
 
-# GET /v1/<customer>/<box> -> {
+# GET /v1/box/<box> -> {
 #   {
 #       'name': 'boxname',
 #       'owner': 'box owner',
@@ -14,4 +13,4 @@ BOX="$2"
 #       ]
 #   }
 #}
-curl -v http://localhost:5000/v1/$CUSTOMER/$BOX
+curl -v http://localhost:5000/v1/box/$BOX
