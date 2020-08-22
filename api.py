@@ -6,9 +6,6 @@ import customer
 
 
 app = Flask(__name__)
-app.port = 5000
-app.host = '0.0.0.0'
-
 api = Api(app)
 
 api.add_resource(customer.CustomerList, '/v1/customers')
