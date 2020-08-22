@@ -10,6 +10,9 @@ services:
       - type: bind
         source: .
         target: /home/boxdb/dev
+    networks:
+      - boxdb-internal-net
+      - boxdb-external-net
     ports:
       - "5000:5000"
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
@@ -25,7 +28,16 @@ services:
       - type: volume
         source: boxdb-volume
         target: /data/db
+    networks:
+      - boxdb-internal-net
 
 volumes:
   boxdb-volume:
+
+networks:
+  boxdb-internal-net:
+    internal: true
+    name: boxdb-internal-net
+  boxdb-external-net:
+    name: boxdb-external-net
 ...
