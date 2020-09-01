@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boxdb-mongo
+  namespace: boxdb
+spec:
+  selector:
+    matchLabels:
+      app: boxdb-mongo
+      version: v1.0
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: boxdb-mongo
+        version: v1.0
+    spec:
+      containers:
+        - name: mongo
+          image: mongo:4.0
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: boxdb
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: boxdb
+          ports:
+            - containerPort: 27017
+              name: boxdb-mongo
+              protocol: TCP
+          readinessProbe:
+            tcpSocket:
+              port: 27017
+            initialDelaySeconds: 10
+            periodSeconds: 60
+          volumeMounts:
+            - name: boxdb-nfs
+              mountPath: "/data/db"
+      volumes:
+        - name: boxdb-nfs
+          nfs:
+            server: 192.168.0.2
+            path: "/srv/nfs4/boxdb"

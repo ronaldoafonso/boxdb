@@ -9,6 +9,12 @@ spec:
     matchLabels:
       app: boxdb
       version: v1.0
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   replicas: 3
   template:
     metadata:
@@ -18,21 +24,13 @@ spec:
     spec:
       containers:
         - name: boxdb
-          image: ronaldoafonso/boxdb:0.0.2
+          image: ronaldoafonso/boxdb:0.0.4
           ports:
             - containerPort: 5000
               name: boxdb
               protocol: TCP
-          volumeMounts:
-            - name: boxdb-nfs
-              mountPath: "/home/boxdb/data" 
           readinessProbe:
             tcpSocket:
               port: 5000
             initialDelaySeconds: 10
             periodSeconds: 60
-      volumes:
-        - name: boxdb-nfs
-          nfs:
-            server: 192.168.0.2
-            path: "/srv/nfs4/boxdb"
