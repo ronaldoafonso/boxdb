@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: boxdb-mongo
+  namespace: boxdb
+spec:
+  type: ClusterIP
+  selector:
+    app: boxdb-mongo
+    version: v1.0
+  ports:
+    - port: 27017 
+      targetPort: 27017
+      protocol: TCP

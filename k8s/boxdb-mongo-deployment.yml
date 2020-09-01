@@ -32,7 +32,7 @@ spec:
               value: boxdb
           ports:
             - containerPort: 27017
-              name: boxdb-mongo
+              name: mongodb
               protocol: TCP
           readinessProbe:
             tcpSocket:
