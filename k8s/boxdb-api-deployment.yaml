@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: boxdb
-          image: ronaldoafonso/boxdb:0.0.4
+          image: ronaldoafonso/boxdb:0.0.5
           ports:
             - containerPort: 5000
               name: boxdb
