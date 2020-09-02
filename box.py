@@ -1,10 +1,18 @@
 
+import os
+
 from flask_restful import Resource
 from pymongo import MongoClient
 
 
-# DOTO: Maybe it could be a 'singleton'
-MONGO = MongoClient('mongodb://boxdb:boxdb@boxdb_mongo_1')
+BOXDB_MONGO = os.getenv('BOXDB_MONGO')
+BOXDB_MONGO_USERNAME = os.getenv('BOXDB_MONGO_USERNAME')
+BOXDB_MONGO_PASSWORD = os.getenv('BOXDB_MONGO_PASSWORD')
+BOXDB_MONGO_URL = 'mongodb://' + BOXDB_MONGO_USERNAME + ':' \
+                               + BOXDB_MONGO_PASSWORD + '@' \
+                               + BOXDB_MONGO
+
+MONGO = MongoClient(BOXDB_MONGO_URL)
 
 
 class BoxList(Resource):

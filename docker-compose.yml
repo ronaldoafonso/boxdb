@@ -2,10 +2,14 @@
 version: '3.7'
 
 services:
-  boxdb:
+  boxdb-api:
     build:
       context: .
-    image: boxdb:0.0.4
+    image: boxdb:0.0.5
+    environment:
+      BOXDB_MONGO: boxdb_boxdb-mongo_1
+      BOXDB_MONGO_USERNAME: boxdb
+      BOXDB_MONGO_PASSWORD: boxdb
     volumes:
       - type: bind
         source: .
@@ -16,7 +20,7 @@ services:
     ports:
       - "5000:5000"
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
-  mongo:
+  boxdb-mongo:
     image: mongo:4.0
     environment:
       MONGO_INITDB_ROOT_USERNAME: boxdb
