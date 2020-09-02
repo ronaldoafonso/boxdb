@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: boxdb-cm
+  namespace: boxdb
+data:
+  boxdb_mongo: boxdb-mongo.boxdb
+  boxdb_mongo_username: boxdb
+  boxdb_mongo_password: boxdb

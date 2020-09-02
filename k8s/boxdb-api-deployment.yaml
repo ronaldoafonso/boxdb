@@ -29,6 +29,22 @@ spec:
             - containerPort: 5000
               name: boxdb
               protocol: TCP
+          env:
+            - name: BOXDB_MONGO
+              valueFrom:
+                configMapKeyRef:
+                  name: boxdb-cm
+                  key: boxdb_mongo
+            - name: BOXDB_MONGO_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: boxdb-cm
+                  key: boxdb_mongo_username
+            - name: BOXDB_MONGO_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: boxdb-cm
+                  key: boxdb_mongo_password
           readinessProbe:
             tcpSocket:
               port: 5000
