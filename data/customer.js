@@ -17,6 +17,20 @@ var _customers = [
             'box2',
             'box22'
         ]
+    },
+    {
+        name: 'customer one',
+        boxes: [
+            'box one',
+            'box one one'
+        ]
+    },
+    {
+        name: 'customer two two',
+        boxes: [
+            'box two',
+            'box two two '
+        ]
     }
 ]
 

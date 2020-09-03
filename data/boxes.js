@@ -38,6 +38,30 @@ var _boxes = [
         macs: [
             '22:22:22:22:22:22'
         ]
+    },
+    {
+        name: 'box one',
+        owner: 'customer one',
+        ssid: 'one',
+        macs: [
+        ]
+    },
+    {
+        name: 'box one one',
+        owner: 'customer one',
+        ssid: 'one one',
+        macs: [
+            '11:11:11:11:11:11'
+        ]
+    },
+    {
+        name: 'box two two',
+        owner: 'customer two',
+        ssid: 'two two',
+        macs: [
+            '11:11:11:11:11:11',
+            '22:22:22:22:22:22'
+        ]
     }
 ]
 
