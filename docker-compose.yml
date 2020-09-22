@@ -5,11 +5,12 @@ services:
   boxdb-api:
     build:
       context: .
-    image: boxdb:0.0.5
+    image: boxdb:0.0.6
     environment:
       BOXDB_MONGO: boxdb_boxdb-mongo_1
       BOXDB_MONGO_USERNAME: boxdb
       BOXDB_MONGO_PASSWORD: boxdb
+      PYTHONPATH: /home/boxdb/dev
     volumes:
       - type: bind
         source: .
