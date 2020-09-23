@@ -5,7 +5,7 @@ services:
   boxdb-api:
     build:
       context: .
-    image: boxdb:0.0.6
+    image: boxdb:0.0.7
     environment:
       BOXDB_MONGO: boxdb_boxdb-mongo_1
       BOXDB_MONGO_USERNAME: boxdb
