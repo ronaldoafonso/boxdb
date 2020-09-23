@@ -51,20 +51,20 @@ class CustomerItem(Resource):
         super(CustomerItem, self).__init__()
 
 
-    def get(self, customer):
-        _customer = self.db.get_customer(customer)
-        if _customer:
-            return {'name': _customer['name'], 'boxes': _customer['boxes']}
+    def get(self, customer_name):
+        customer = self.db.get_customer(customer_name)
+        if customer:
+            return {key:customer[key] for key in ('name', 'boxes')}
         return {'message': 'customer not found'}, 404
 
-    def delete(self, customer):
-        self.db.del_customer(customer)
-        return {'message': f'customer {customer} deleted.'}
+    def delete(self, customer_name):
+        self.db.del_customer(customer_name)
+        return {'message': f'customer {customer_name} deleted.'}
 
-    def put(self, customer):
-        _customer = self.reqparse.parse_args()
-        _customer['name'] = customer
-        if self.db.get_customer(customer):
-            self.db.update_customer(customer, _customer)
-            return {'message': f'customer {customer} updated.'}
-        return {'message': f'customer {customer} not found.'}, 404
+    def put(self, customer_name):
+        customer = self.reqparse.parse_args()
+        customer['name'] = customer_name
+        if self.db.get_customer(customer_name):
+            self.db.update_customer(customer_name, customer)
+            return {'message': f'customer {customer_name} updated.'}
+        return {'message': f'customer {customer_name} not found.'}, 404
