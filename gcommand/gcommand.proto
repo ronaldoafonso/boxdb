@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package gcommand;
+
+option go_package = "github.com/ronaldoafonso/boxcmd/gcommand";
+
+service RemoteCommand {
+    rpc ExecCommand(Command) returns(ReturnMsg) {}
+}
+
+message Command {
+    string boxname = 1;
+    string command = 2;
+    string params = 3;
+}
+
+message ReturnMsg {
+    string returnMsg = 1;
+}

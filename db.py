@@ -17,7 +17,7 @@ class Db:
     def __init__(self):
         mongo = MongoClient(BOXDB_MONGO_URL)
         self.customers = mongo.boxdb.customers
-        self.boxes = mongo.boxdb.customers
+        self.boxes = mongo.boxdb.boxes
 
     def get_customers(self):
         return self.customers.find()

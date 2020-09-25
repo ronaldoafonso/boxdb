@@ -5,83 +5,83 @@ source ./test/test_api.sh
 
 # Test - Get with no resource
 do_test "GET" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 404 NOT FOUND" \
         "Content-Type: application/json" \
         "{\"message\": \"box not found\"}"
 
-# Test - Post box1
+# Test - Post 788a20298f81.z3n.com.br
 do_test "POST" \
         "http://localhost:5000/v1/boxes" \
-        "{\"name\": \"box1\", \"owner\": \"owner1\"}" \
+        "{\"name\": \"788a20298f81.z3n.com.br\", \"owner\": \"z3n\"}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"box box1 created.\", \"location\": \"v1/boxes/box1\"}"
+        "{\"message\": \"box 788a20298f81.z3n.com.br created.\", \"location\": \"v1/boxes/788a20298f81.z3n.com.br\"}"
 
-# Test - Get box1 and should get a response now
+# Test - Get 788a20298f81.z3n.com.br and should get a response now
 do_test "GET" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"box1\", \"owner\": \"owner1\", \"ssid\": \"\", \"macs\": \[\]}"
+        "{\"name\": \"788a20298f81.z3n.com.br\", \"owner\": \"z3n\", \"ssid\": \"\", \"macs\": \[\]}"
 
-# Test - Put box1 with an SSID ssid1
+# Test - Put 788a20298f81.z3n.com.br with an SSID ssid1
 do_test "PUT" \
-        "http://localhost:5000/v1/boxes/box1" \
-        "{\"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": []}" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
+        "{\"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": []}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"box box1 updated.\"}"
+        "{\"message\": \"box 788a20298f81.z3n.com.br updated.\"}"
 
-# Test - Get box1 with SSID as ssid1 and no MACs
+# Test - Get 788a20298f81.z3n.com.br with SSID as ssid1 and no MACs
 do_test "GET" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"box1\", \"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": \[\]}"
+        "{\"name\": \"788a20298f81.z3n.com.br\", \"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": \[\]}"
 
-# Test - Put box1 with an SSID ssid1 and one MACs
+# Test - Put 788a20298f81.z3n.com.br with an SSID ssid1 and one MACs
 do_test "PUT" \
-        "http://localhost:5000/v1/boxes/box1" \
-        "{\"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": [\"11:11:11:11:11:11\"]}" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
+        "{\"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": [\"11:11:11:11:11:11\"]}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"box box1 updated.\"}"
+        "{\"message\": \"box 788a20298f81.z3n.com.br updated.\"}"
 
-# Test - Get box1 with SSID as ssid1 and one MACs
+# Test - Get 788a20298f81.z3n.com.br with SSID as ssid1 and one MACs
 do_test "GET" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"box1\", \"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": \[\"11:11:11:11:11:11\"\]}"
+        "{\"name\": \"788a20298f81.z3n.com.br\", \"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": \[\"11:11:11:11:11:11\"\]}"
 
-# Test - Put box1 with an SSID ssid1 and two MACs
+# Test - Put 788a20298f81.z3n.com.br with an SSID ssid1 and two MACs
 do_test "PUT" \
-        "http://localhost:5000/v1/boxes/box1" \
-        "{\"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": [\"11:11:11:11:11:11\", \"22:22:22:22:22:22\"]}" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
+        "{\"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": [\"11:11:11:11:11:11\", \"22:22:22:22:22:22\"]}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"box box1 updated.\"}"
+        "{\"message\": \"box 788a20298f81.z3n.com.br updated.\"}"
 
-# Test - Get box1 with SSID as ssid1 and two MACs
+# Test - Get 788a20298f81.z3n.com.br with SSID as ssid1 and two MACs
 do_test "GET" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"box1\", \"owner\": \"owner1\", \"ssid\": \"ssid1\", \"macs\": \[\"11:11:11:11:11:11\", \"22:22:22:22:22:22\"\]}"
+        "{\"name\": \"788a20298f81.z3n.com.br\", \"owner\": \"z3n\", \"ssid\": \"ssid1\", \"macs\": \[\"11:11:11:11:11:11\", \"22:22:22:22:22:22\"\]}"
 
-# Test - Delete box1
+# Test - Delete 788a20298f81.z3n.com.br
 do_test "DELETE" \
-        "http://localhost:5000/v1/boxes/box1" \
+        "http://localhost:5000/v1/boxes/788a20298f81.z3n.com.br" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"box box1 deleted.\"}"
+        "{\"message\": \"box 788a20298f81.z3n.com.br deleted.\"}"
 
 # Test - Get a list of boxes
 do_test "GET" \
@@ -91,9 +91,7 @@ do_test "GET" \
         "Content-Type: application/json" \
         "{\"boxes\": \[\]}"
 
-BOXES="box1 \
-       box2 \
-       box3"
+BOXES="788a20298f81.z3n.com.br"
 
 for BOX in $BOXES
 do
@@ -116,7 +114,7 @@ do_test "GET" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"boxes\": \[\"box1\", \"box2\", \"box3\"\]}"
+        "{\"boxes\": \[\"788a20298f81.z3n.com.br\"\]}"
 
 for BOX in $BOXES
 do

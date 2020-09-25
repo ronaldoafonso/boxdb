@@ -35,6 +35,18 @@ services:
         target: /data/db
     networks:
       - boxdb-internal-net
+  boxcmd:
+    image: boxcmd:0.0.4
+    volumes:
+      - type: bind
+        source: /tmp/z3nbox-1.0
+        target: /home/boxcmd/.ssh/z3n/z3nbox-1.0
+    networks:
+      - boxdb-internal-net
+      - boxdb-external-net
+    ports:
+      - "50051:50051"
+    command: ["boxcmd"]
 
 volumes:
   boxdb-volume:

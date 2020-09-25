@@ -4,67 +4,67 @@ source ./test/test_api.sh
 
 # Test - Get with no resource
 do_test "GET" \
-        "http://localhost:5000/v1/customers/customer1" \
+        "http://localhost:5000/v1/customers/z3n1" \
         "" \
         "HTTP/1.0 404 NOT FOUND" \
         "Content-Type: application/json" \
         "{\"message\": \"customer not found\"}"
 
-# Test - Post customer1
+# Test - Post z3n1
 do_test "POST" \
         "http://localhost:5000/v1/customers" \
-        "{\"name\": \"customer1\"}" \
+        "{\"name\": \"z3n1\"}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"customer customer1 created.\", \"location\": \"v1/customers/customer1\"}"
+        "{\"message\": \"customer z3n1 created.\", \"location\": \"v1/customers/z3n1\"}"
 
-# Test - Get customer1
+# Test - Get z3n1
 do_test "GET" \
-        "http://localhost:5000/v1/customers/customer1" \
+        "http://localhost:5000/v1/customers/z3n1" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"customer1\", \"boxes\": \[\]}"
+        "{\"name\": \"z3n1\", \"boxes\": \[\]}"
 
-# Test - Put customer1 with box1
+# Test - Put z3n1 with 788a20298f81.z3n.com.br
 do_test "PUT" \
-        "http://localhost:5000/v1/customers/customer1" \
-        "{\"boxes\": [\"box1\"]}" \
+        "http://localhost:5000/v1/customers/z3n1" \
+        "{\"boxes\": [\"788a20298f81.z3n.com.br\"]}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"customer customer1 updated.\"}"
+        "{\"message\": \"customer z3n1 updated.\"}"
 
-# Test - Get customer1 and box1
+# Test - Get z3n1 and 788a20298f81.z3n.com.br
 do_test "GET" \
-        "http://localhost:5000/v1/customers/customer1" \
+        "http://localhost:5000/v1/customers/z3n1" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"customer1\", \"boxes\": \[\"box1\"\]}"
+        "{\"name\": \"z3n1\", \"boxes\": \[\"788a20298f81.z3n.com.br\"\]}"
 
-# Test - Put box11 to customer1
+# Test - Put box11 to z3n1
 do_test "PUT" \
-        "http://localhost:5000/v1/customers/customer1" \
-        "{\"boxes\": [\"box1\", \"box11\"]}" \
+        "http://localhost:5000/v1/customers/z3n1" \
+        "{\"boxes\": [\"788a20298f81.z3n.com.br\", \"box11\"]}" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"customer customer1 updated.\"}"
+        "{\"message\": \"customer z3n1 updated.\"}"
 
-# Test - Get customer1 with box1 and box11
+# Test - Get z3n1 with 788a20298f81.z3n.com.br and box11
 do_test "GET" \
-        "http://localhost:5000/v1/customers/customer1" \
+        "http://localhost:5000/v1/customers/z3n1" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"name\": \"customer1\", \"boxes\": \[\"box1\", \"box11\"\]}"
+        "{\"name\": \"z3n1\", \"boxes\": \[\"788a20298f81.z3n.com.br\", \"box11\"\]}"
 
-# Test - Delete customer1
+# Test - Delete z3n1
 do_test "DELETE" \
-        "http://localhost:5000/v1/customers/customer1" \
+        "http://localhost:5000/v1/customers/z3n1" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"message\": \"customer customer1 deleted.\"}"
+        "{\"message\": \"customer z3n1 deleted.\"}"
 
 # Test - Get a list of customers
 do_test "GET" \
@@ -74,9 +74,9 @@ do_test "GET" \
         "Content-Type: application/json" \
         "{\"customers\": \[\]}"
 
-CUSTOMERS="customer1 \
-           customer2 \
-           customer3"
+CUSTOMERS="z3n1 \
+           z3n2 \
+           z3n3"
 
 for CUSTOMER in $CUSTOMERS
 do
@@ -100,7 +100,7 @@ do_test "GET" \
         "" \
         "HTTP/1.0 200 OK" \
         "Content-Type: application/json" \
-        "{\"customers\": \[\"customer1\", \"customer2\", \"customer3\"\]}"
+        "{\"customers\": \[\"z3n1\", \"z3n2\", \"z3n3\"\]}"
 
 for CUSTOMER in $CUSTOMERS
 do
