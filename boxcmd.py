@@ -1,14 +1,18 @@
 
+import os
+
 import grpc
 import gcommand_pb2_grpc
 import gcommand_pb2
 
 
+BOXCMD = os.getenv('BOXCMD')
+
 
 class BoxCmd():
 
     def __init__(self):
-        channel = grpc.insecure_channel('boxdb_boxcmd_1:50051')
+        channel = grpc.insecure_channel(BOXCMD + ':50051')
         self.stub = gcommand_pb2_grpc.RemoteCommandStub(channel)
 
     def exec_cmd(self, box):
