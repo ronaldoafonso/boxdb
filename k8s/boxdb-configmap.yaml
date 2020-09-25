@@ -5,6 +5,7 @@ metadata:
   name: boxdb-cm
   namespace: boxdb
 data:
+  boxcmd: boxcmd.boxcmd
   boxdb_mongo: boxdb-mongo.boxdb
   boxdb_mongo_username: boxdb
   boxdb_mongo_password: boxdb

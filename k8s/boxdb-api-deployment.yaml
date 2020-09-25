@@ -24,12 +24,17 @@ spec:
     spec:
       containers:
         - name: boxdb
-          image: ronaldoafonso/boxdb:0.0.5
+          image: ronaldoafonso/boxdb:0.0.8
           ports:
             - containerPort: 5000
               name: boxdb
               protocol: TCP
           env:
+            - name: BOXCMD
+              valueFrom:
+                configMapKeyRef:
+                  name: boxdb-cm
+                  key: boxcmd
             - name: BOXDB_MONGO
               valueFrom:
                 configMapKeyRef:
