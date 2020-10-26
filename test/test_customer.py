@@ -158,3 +158,25 @@ class TestCustomerPost:
         assert r.headers['content-type'] == 'application/json'
         assert rbody['message'] == 'customer z3n updated.'
         assert rdata['name'] == 'z3n'
+
+@mark.customer
+@mark.delete
+class TestCustomerDelete:
+
+    def test_delete_an_non_existing_customer(self, remove_customer_z3n_from_db):
+        r = requests.delete('http://localhost:5000/v1/customers/z3n')
+        rbody = r.json()
+        rdata = json.loads(subprocess.check_output('docker container exec boxdb_boxdb-mongo_1 mongo --quiet --eval \'var customer="z3n"\' /root/data/check_customer.js', shell=True))
+        assert r.status_code == 200
+        assert r.headers['content-type'] == 'application/json'
+        assert rbody['message'] == 'customer z3n deleted.'
+        assert rdata == None
+
+    def test_delete_an_existing_customer(self, add_customer_z3n_with_one_box):
+        r = requests.delete('http://localhost:5000/v1/customers/z3n')
+        rbody = r.json()
+        rdata = json.loads(subprocess.check_output('docker container exec boxdb_boxdb-mongo_1 mongo --quiet --eval \'var customer="z3n"\' /root/data/check_customer.js', shell=True))
+        assert r.status_code == 200
+        assert r.headers['content-type'] == 'application/json'
+        assert rbody['message'] == 'customer z3n deleted.'
+        assert rdata == None
