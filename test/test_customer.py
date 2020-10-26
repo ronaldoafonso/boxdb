@@ -128,3 +128,33 @@ class TestCustomerPost:
         assert rbody['location'] == 'v1/customers/customer 1'
         assert rdata['name'] == 'customer 1'
         assert rdata['boxes'] == []
+
+@mark.customer
+@mark.put
+class TestCustomerPost:
+
+    def test_put_an_non_existing_customer(self, remove_customer_z3n_from_db):
+        r = requests.put('http://localhost:5000/v1/customers/z3n', json={'boxes': ['box1']})
+        rbody = r.json()
+        assert r.status_code == 404
+        assert r.headers['content-type'] == 'application/json'
+        assert rbody['message'] == 'customer z3n not found.'
+
+    def test_put_a_customer_without_boxes(self, add_customer_z3n_with_no_boxes_to_db):
+        r = requests.put('http://localhost:5000/v1/customers/z3n', json={'boxes': ['box1']})
+        rbody = r.json()
+        rdata = json.loads(subprocess.check_output('docker container exec boxdb_boxdb-mongo_1 mongo --quiet --eval \'var customer="z3n"\' /root/data/check_customer.js', shell=True))
+        assert r.status_code == 200
+        assert r.headers['content-type'] == 'application/json'
+        assert rbody['message'] == 'customer z3n updated.'
+        assert rdata['name'] == 'z3n'
+        assert rdata['boxes'] == ['box1']
+
+    def test_put_a_customer_with_one_box(self, add_customer_z3n_with_one_box):
+        r = requests.put('http://localhost:5000/v1/customers/z3n', json={'boxes': ['box1', 'box2']})
+        rbody = r.json()
+        rdata = json.loads(subprocess.check_output('docker container exec boxdb_boxdb-mongo_1 mongo --quiet --eval \'var customer="z3n"\' /root/data/check_customer.js', shell=True))
+        assert r.status_code == 200
+        assert r.headers['content-type'] == 'application/json'
+        assert rbody['message'] == 'customer z3n updated.'
+        assert rdata['name'] == 'z3n'
