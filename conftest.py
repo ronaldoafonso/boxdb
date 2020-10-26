@@ -58,3 +58,41 @@ def add_customers_three():
     system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_customers_three.js')
     yield
     system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_customers.js')
+
+@fixture()
+def remove_all_boxes():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
+
+@fixture()
+def add_boxes_one():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_boxes_one.js')
+    yield
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
+
+@fixture()
+def add_boxes_two():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_boxes_two.js')
+    yield
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
+
+@fixture()
+def add_boxes_three():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_boxes_three.js')
+    yield
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
+
+@fixture()
+def remove_box1_from_db():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_box1.js')
+
+@fixture()
+def add_box1_with_all_empty():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_box_all_empty.js')
+    yield
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
+
+@fixture()
+def add_box1_with_ssid_and_macs():
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/add_box_ssid_macs.js')
+    yield
+    system('docker container exec boxdb_boxdb-mongo_1 mongo /root/data/remove_all_boxes.js')
