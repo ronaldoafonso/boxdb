@@ -3,7 +3,6 @@ from flask_restful import Resource, reqparse
 from pymongo import MongoClient
 
 from db import Db
-from boxcmd import BoxCmd
 
 
 class BoxList(Resource):
@@ -29,7 +28,6 @@ class BoxList(Resource):
                                     help='Allowed MACs for the box',
                                     location='json')
         self.db = Db()
-        self.cmd = BoxCmd()
         super(BoxList, self).__init__()
 
     def get(self):
@@ -47,7 +45,6 @@ class BoxList(Resource):
         if self.db.get_box(box['name']):
             return rc, 201
         self.db.add_box(box)
-        self.cmd.exec_cmd(box)
         return rc, 200
 
 
@@ -69,7 +66,6 @@ class BoxItem(Resource):
                                     help='Allowed MACs for the box',
                                     location='json')
         self.db = Db()
-        self.cmd = BoxCmd()
         super(BoxItem, self).__init__()
 
     def get(self, box_name):
@@ -89,6 +85,5 @@ class BoxItem(Resource):
         box['macs'] = box['macs'] or []
         if self.db.get_box(box_name):
             self.db.update_box(box_name, box)
-            self.cmd.exec_cmd(box)
             return {'message': f'box {box_name} updated.'}
         return {'message': f'box {box_name} not found.'}, 404
