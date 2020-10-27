@@ -3,4 +3,4 @@ var mongo = new Mongo('mongodb://boxdb:boxdb@localhost')
 var boxdb = mongo.getDB('boxdb')
 var customers = boxdb.getCollection('customers')
 
-customers.insert({name: 'z3n z3n', 'boxes': []})
+customers.insert(customer)
