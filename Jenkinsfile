@@ -9,7 +9,7 @@ pipeline {
                 sh "source venv/bin/activate; pip install --no-cache-dir pytest==6.1.1 requests==2.24.0; pytest -vvv"
                 sh "docker-compose down"
                 sh "docker image tag boxdb:0.0.9 ronaldoafonso/boxdb:0.0.9"
-                sh "docker image push ronaldoafonso/boxdb.0.0.9"
+                sh "docker image push ronaldoafonso/boxdb:0.0.9"
             }
         }
     }
