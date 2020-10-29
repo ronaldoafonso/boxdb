@@ -12,5 +12,15 @@ pipeline {
                 sh "docker image push ronaldoafonso/boxdb:0.0.9"
             }
         }
+        stage("Stagging Tests") {
+            steps {
+                sh "kubectl apply -f k8s/boxdb-namespace.yaml"
+                sh "kubectl apply -f k8s/boxdb-configmap.yaml"
+                sh "kubectl apply -f k8s/boxdb-mongo-service.yaml"
+                sh "kubectl apply -f k8s/boxdb-api-service.yaml"
+                sh "kubectl apply -f k8s/boxdb-mongo-deployment.yaml"
+                sh "kubectl apply -f k8s/boxdb-api-deployment.yaml"
+            }
+        }
     }
 }
