@@ -20,6 +20,7 @@ pipeline {
                 sh "kubectl apply -f k8s/boxdb-api-service.yaml"
                 sh "kubectl apply -f k8s/boxdb-mongo-deployment.yaml"
                 sh "kubectl apply -f k8s/boxdb-api-deployment.yaml"
+                sh "./test/stagging.sh"
             }
         }
     }
