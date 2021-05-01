@@ -1,4 +1,9 @@
 
+"""
+    The main RESTfull API module for boxdb-api.
+    This is where all the "endpoints" are defined and routed.
+"""
+
 from flask import Flask
 from flask_restful import Api
 

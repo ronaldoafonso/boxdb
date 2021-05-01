@@ -1,89 +1,117 @@
 
-from flask_restful import Resource, reqparse
-from pymongo import MongoClient
+"""
+    All operations related to the management of boxes for the boxdb-api.
+"""
 
-from db import Db
+from resource import ResourceList
 
 
-class BoxList(Resource):
+ARG_NAME = {
+    'name': 'name',
+    'params': {
+        'type': str,
+        'required': True,
+        'help': 'Box name',
+        'location': 'json'
+    }
+}
+
+ARG_OWNER = {
+    'name': 'owner',
+    'params': {
+        'type': str,
+        'required': True,
+        'help': 'Box owner\'s name',
+        'location': 'json'
+    }
+}
+
+ARG_SSID = {
+    'name': 'ssid',
+    'params': {
+        'type': str,
+        'help': 'Box SSID',
+        'location': 'json'
+    }
+}
+
+ARG_MACS = {
+    'name': 'macs',
+    'params': {
+        'type': list,
+        'help': 'Allowed MACs for the box',
+        'location': 'json'
+    }
+}
+
+
+class BoxList(ResourceList):
+    """
+        RESTful API for "boxes" as a list.
+    """
 
     def __init__(self):
-        self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('name',
-                                    type=str,
-                                    required=True,
-                                    help='Box name',
-                                    location='json')
-        self.reqparse.add_argument('owner',
-                                    type=str,
-                                    required=True,
-                                    help='Box owner\'s name',
-                                    location='json')
-        self.reqparse.add_argument('ssid',
-                                    type=str,
-                                    help='Box SSID',
-                                    location='json')
-        self.reqparse.add_argument('macs',
-                                    type=list,
-                                    help='Allowed MACs for the box',
-                                    location='json')
-        self.db = Db()
-        super(BoxList, self).__init__()
+        arguments = [ARG_NAME, ARG_OWNER, ARG_SSID, ARG_MACS]
+        super().__init__(arguments)
 
     def get(self):
-        boxes = self.db.get_boxes()
+        """
+            RESTful GET method for boxes list.
+        """
+        boxes = self.boxdb_database.get_boxes()
         return {'boxes': [box['name'] for box in boxes]}
 
     def post(self):
+        """
+            RESTful POST method for boxes list.
+        """
         box = self.reqparse.parse_args()
         box['ssid'] = box['ssid'] or ""
         box['macs'] = box['macs'] or []
-        rc = {
+        return_message = {
             'message': f'box {box["name"]} created.',
             'location': f'v1/boxes/{box["name"]}'
         }
-        if self.db.get_box(box['name']):
-            return rc, 201
-        self.db.add_box(box)
-        return rc, 200
+        if self.boxdb_database.get_box(box['name']):
+            return return_message, 201
+        self.boxdb_database.add_box(box)
+        return return_message, 200
 
 
-class BoxItem(Resource):
+class BoxItem(ResourceList):
+    """
+        RESTful API for "boxes" as an item.
+    """
 
     def __init__(self):
-        self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('owner',
-                                    type=str,
-                                    required=True,
-                                    help='Box owner\'s name',
-                                    location='json')
-        self.reqparse.add_argument('ssid',
-                                    type=str,
-                                    help='Box SSID',
-                                    location='json')
-        self.reqparse.add_argument('macs',
-                                    type=list,
-                                    help='Allowed MACs for the box',
-                                    location='json')
-        self.db = Db()
-        super(BoxItem, self).__init__()
+        arguments = [ARG_OWNER, ARG_SSID, ARG_MACS]
+        super().__init__(arguments)
 
     def get(self, box_name):
-        box = self.db.get_box(box_name)
+        """
+            RESTful GET method for boxes items.
+        """
+        box = self.boxdb_database.get_box(box_name)
         if box:
             return {key:box[key] for key in ('name', 'owner', 'ssid', 'macs')}
         return {'message': 'box not found'}, 404
 
     def delete(self, box_name):
-        self.db.del_box(box_name)
+        """
+            RESTful DELETE method for boxes items.
+        """
+        self.boxdb_database.del_box(box_name)
         return {'message': f'box {box_name} deleted.'}
 
     def put(self, box_name):
+        """
+            RESTful PUT method for boxes items.
+        """
         box = self.reqparse.parse_args()
         box['name'] = box_name
         box['ssid'] = box['ssid'] or ""
         box['macs'] = box['macs'] or []
-        if self.db.get_box(box_name):
-            self.db.update_box(box_name, box)
+        if self.boxdb_database.get_box(box_name):
+            self.boxdb_database.update_box(box_name, box)
             return {'message': f'box {box_name} updated.'}
         return {'message': f'box {box_name} not found.'}, 404

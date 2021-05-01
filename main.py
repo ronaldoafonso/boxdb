@@ -1,4 +1,7 @@
 
+"""
+    The main module for the boxdb-api.
+"""
 
 import api
 
