@@ -7,7 +7,7 @@ from resource import ResourceList
 
 
 ARG_NAME = {
-    'name': 'name',
+    'name': 'boxname',
     'params': {
         'type': str,
         'required': True,
@@ -59,7 +59,7 @@ class BoxList(ResourceList):
             RESTful GET method for boxes list.
         """
         boxes = self.boxdb_database.get_boxes()
-        return {'boxes': [box['name'] for box in boxes]}
+        return {'boxes': [box['boxname'] for box in boxes]}
 
     def post(self):
         """
@@ -69,10 +69,10 @@ class BoxList(ResourceList):
         box['ssid'] = box['ssid'] or ""
         box['macs'] = box['macs'] or []
         return_message = {
-            'message': f'box {box["name"]} created.',
-            'location': f'v1/boxes/{box["name"]}'
+            'message': f'box {box["boxname"]} created.',
+            'location': f'v1/boxes/{box["boxname"]}'
         }
-        if self.boxdb_database.get_box(box['name']):
+        if self.boxdb_database.get_box(box['boxname']):
             return return_message, 201
         self.boxdb_database.add_box(box)
         return return_message, 200
@@ -93,7 +93,7 @@ class BoxItem(ResourceList):
         """
         box = self.boxdb_database.get_box(box_name)
         if box:
-            return {key:box[key] for key in ('name', 'owner', 'ssid', 'macs')}
+            return {key:box[key] for key in ('boxname', 'owner', 'ssid', 'macs')}
         return {'message': 'box not found'}, 404
 
     def delete(self, box_name):
@@ -108,7 +108,7 @@ class BoxItem(ResourceList):
             RESTful PUT method for boxes items.
         """
         box = self.reqparse.parse_args()
-        box['name'] = box_name
+        box['boxname'] = box_name
         box['ssid'] = box['ssid'] or ""
         box['macs'] = box['macs'] or []
         if self.boxdb_database.get_box(box_name):

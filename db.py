@@ -65,7 +65,7 @@ class Db:
         """
             Return a box seached using the box name.
         """
-        return self.boxes.find_one({'name': box_name})
+        return self.boxes.find_one({'boxname': box_name})
 
     def add_box(self, box):
         """
@@ -77,10 +77,10 @@ class Db:
         """
             Delete a box from the database.
         """
-        self.boxes.delete_one({'name': box_name})
+        self.boxes.delete_one({'boxname': box_name})
 
     def update_box(self, box_name, new_box):
         """
             Update a box into the database.
         """
-        self.boxes.update_one({'name': box_name}, {'$set': new_box})
+        self.boxes.update_one({'boxname': box_name}, {'$set': new_box})

@@ -5,7 +5,7 @@ var boxes = boxdb.getCollection('boxes')
 
 var _boxes = [
     {
-        name: 'box1',
+        boxname: 'box1',
         owner: 'customer1',
         ssid: 'ssid1',
         macs: [
@@ -13,7 +13,7 @@ var _boxes = [
          ]
     },
     {
-        name: 'box11',
+        boxname: 'box11',
         owner: 'customer1',
         ssid: 'ssid1',
         macs: [
@@ -22,7 +22,7 @@ var _boxes = [
         ]
     },
     {
-        name: 'box2',
+        boxname: 'box2',
         owner: 'customer2',
         ssid: 'ssid2',
         macs: [
@@ -32,7 +32,7 @@ var _boxes = [
         ]
     },
     {
-        name: 'box22',
+        boxname: 'box22',
         owner: 'customer2',
         ssid: 'ssid2',
         macs: [
@@ -40,14 +40,14 @@ var _boxes = [
         ]
     },
     {
-        name: 'box one',
+        boxname: 'box one',
         owner: 'customer one',
         ssid: 'one',
         macs: [
         ]
     },
     {
-        name: 'box one one',
+        boxname: 'box one one',
         owner: 'customer one',
         ssid: 'one one',
         macs: [
@@ -55,7 +55,7 @@ var _boxes = [
         ]
     },
     {
-        name: 'box two two',
+        boxname: 'box two two',
         owner: 'customer two',
         ssid: 'two two',
         macs: [
