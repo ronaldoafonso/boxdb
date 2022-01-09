@@ -5,12 +5,11 @@ metadata:
   name: boxdb-api
   namespace: boxdb
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: boxdb
     version: v1.0
   ports:
-    - port: 5000
-      nodePort: 30000
+    - port: 8080
       targetPort: 5000
       protocol: TCP
