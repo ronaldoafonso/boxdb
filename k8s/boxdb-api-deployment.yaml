@@ -32,23 +32,23 @@ spec:
           env:
             - name: BOXCMD
               valueFrom:
-                configMapKeyRef:
-                  name: boxdb-cm
+                secretKeyRef:
+                  name: boxdb-secrets
                   key: boxcmd
             - name: BOXDB_MONGO
               valueFrom:
-                configMapKeyRef:
-                  name: boxdb-cm
+                secretKeyRef:
+                  name: boxdb-secrets
                   key: boxdb_mongo
             - name: BOXDB_MONGO_USERNAME
               valueFrom:
-                configMapKeyRef:
-                  name: boxdb-cm
+                secretKeyRef:
+                  name: boxdb-secrets
                   key: boxdb_mongo_username
             - name: BOXDB_MONGO_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: boxdb-cm
+                secretKeyRef:
+                  name: boxdb-secrets
                   key: boxdb_mongo_password
           readinessProbe:
             tcpSocket:

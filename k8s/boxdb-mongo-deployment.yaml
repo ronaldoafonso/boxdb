@@ -27,9 +27,15 @@ spec:
           image: mongo:4.0
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: boxdb
+              valueFrom:
+                secretKeyRef:
+                  name: boxdb-secrets
+                  key: boxdb_mongo_username
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: boxdb
+              valueFrom:
+                secretKeyRef:
+                  name: boxdb-secrets
+                  key: boxdb_mongo_password
           ports:
             - containerPort: 27017
               name: mongodb
