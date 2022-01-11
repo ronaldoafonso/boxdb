@@ -50,6 +50,5 @@ spec:
               mountPath: "/data/db"
       volumes:
         - name: boxdb-nfs
-          nfs:
-            server: 192.168.0.2
-            path: "/srv/nfs4/boxdb"
+          persistentVolumeClaim:
+            claimName: boxdb-pvc
