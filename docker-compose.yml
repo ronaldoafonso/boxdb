@@ -5,7 +5,9 @@ services:
   boxdb-api:
     build:
       context: .
-    image: boxdb:0.0.10
+    image: boxdb:0.0.11
+    depends_on:
+      - boxdb-mongo
     environment:
       BOXCMD: boxdb_boxcmd_1
       BOXDB_MONGO: boxdb_boxdb-mongo_1
@@ -20,7 +22,7 @@ services:
       - boxdb-internal-net
       - boxdb-external-net
     ports:
-      - "5000:5000"
+      - "30000:30000"
     command: ["/bin/sh", "-c", "while :; do sleep 10; done"]
   boxdb-mongo:
     image: mongo:4.0
