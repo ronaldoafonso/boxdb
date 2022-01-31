@@ -1,15 +1,22 @@
 pipeline {
     agent any
     environment {
+        PYTHON_FILES = "main.py api.py customer.py box.py"
         IMAGE_REPO = "ronaldoafonso"
         IMAGE_NAME = "boxdb"
         IMAGE_TAG = "0.0.11"
         IMAGE = "${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
     stages {
+        stage("Code Quality Tests") {
+            steps {
+                sh "python3 -m venv venv"
+                sh ". ./venv/bin/activate; pip install --no-cache-dir pylint==2.12.2 flask==1.1.2 flask-restful==0.3.8; pylint ${PYTHON_FILES}"
+            }
+        }
         stage("Integration Tests") {
             steps {
-                sh "docker-compose build boxdb-api "
+                sh "docker-compose build boxdb-api"
                 sh "docker-compose up --detach boxdb-mongo"
                 sh "docker-compose up --detach boxdb-api"
                 sh "docker-compose exec --detach --env BOXDB_MONGO=\$(docker-compose images | grep 'boxdb-mongo' | cut -d ' ' -f 1) boxdb-api bash -c 'python main.py'"
