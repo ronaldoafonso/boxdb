@@ -4,7 +4,9 @@ pipeline {
         PYTHON_FILES = "main.py api.py customer.py box.py"
         IMAGE_REPO = "ronaldoafonso"
         IMAGE_NAME = "boxdb"
-        IMAGE_TAG = "0.0.11"
+        IMAGE_TAG = sh(
+                        script: "grep 'image: boxdb:' docker-compose.yml | cut -d ':' -f 3",
+                        returnStdout: true).trim()
         IMAGE = "${IMAGE_REPO}/${IMAGE_NAME}:${IMAGE_TAG}"
     }
     stages {
