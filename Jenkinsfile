@@ -44,6 +44,19 @@ pipeline {
                 sh "./test/stagging.sh"
             }
         }
+        stage("Push to Public Registry") {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        input {
+                            message "Should we push ${IMAGE} to a public registry?"
+                            ok "Yes, we should."
+                        }
+                        echo "Push to a public registry"
+                    }
+                }
+            }
+        }
     }
     post {
         always {
